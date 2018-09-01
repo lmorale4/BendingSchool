@@ -2,6 +2,7 @@
  * Hi! I'm your stylesheet! I've got some sensible defaults here,
  * but feel free to change me to your heart's content!
  */
+@import './font/herculanum.ttf';
 
 * {
   box-sizing: border-box;
@@ -9,7 +10,7 @@
 }
 
 body {
-  background: linear-gradient(#ffffff, #c0c0c0);
+  background-color: #ffffff;
   height: 100vh;
   padding: 0;
   margin: 0;
@@ -30,4 +31,31 @@ main {
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+a {
+  font-family: 'Herculanum' !important;
+}
+
+img.img {
+  width: 100%;
+}
+
+img.img-thumbnail {
+  height: 16em;
+}
+
+img.img-thumbnail.student {
+  height: 5em;
+}
+
+.icon {
+  width: 5em;
+  height: 3em;
 }
