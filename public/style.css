@@ -39,7 +39,8 @@ h3,
 h4,
 h5,
 h6,
-a {
+a,
+#search {
   font-family: 'Herculanum' !important;
 }
 
@@ -52,10 +53,25 @@ img.img-thumbnail {
 }
 
 img.img-thumbnail.student {
-  height: 5em;
+  height: 9em;
+  width: 9em;
+}
+
+img.bendingSymbol {
+  height: 1em;
+  width: 1em;
 }
 
 .icon {
   width: 5em;
   height: 3em;
+}
+
+#homeCarousel {
+  height: 25vw;
+}
+.corouselDiv {
+  position: absolute;
+  width: 100vw;
+  left: calc(-50vw + 50%);
 }

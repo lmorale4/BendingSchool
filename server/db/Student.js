@@ -36,6 +36,9 @@ const Student = db.define('student', {
     type: Sequelize.STRING,
     defaultValue: '/img/defaultStudent.png',
   },
+  bending: {
+    type: Sequelize.ENUM('Water', 'Earth', 'Fire', 'Air', 'Avatar'),
+  },
   gpa: {
     type: Sequelize.INTEGER,
     validate: {

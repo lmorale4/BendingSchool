@@ -14,15 +14,33 @@ import Student from './Student/Student';
 import 'bootstrap';
 
 class Root extends Component {
+  constructor() {
+    super();
+    this.state = {
+      search: '',
+    };
+    this.handleSearchChange = this.handleSearchChange.bind(this);
+  }
+
+  handleSearchChange(evt) {
+    this.setState({
+      search: evt.target.value,
+    });
+  }
+
   componentDidMount() {
     this.props.getCampuses();
     this.props.getStudents();
   }
+
   render() {
     return (
       <Router>
         <div>
-          <Navbar />
+          <Navbar
+            {...this.state}
+            handleSearchChange={this.handleSearchChange}
+          />
           <main className="container">
             <Switch>
               <Route exact path="/" component={Home} />

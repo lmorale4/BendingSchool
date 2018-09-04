@@ -68,6 +68,7 @@ const students = [
     lastName: 'The Last Airbender',
     email: 'aang@email.com',
     imageUrl: 'https://i.imgur.com/V2NmxaP.jpg',
+    bending: 'Avatar',
     gpa: 40,
     campusId: 2,
   },
@@ -77,6 +78,7 @@ const students = [
     email: 'katara@email.com',
     imageUrl:
       'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRz4gZSJu7iYTWl5RE1tfseBtmCU2TR3DYUlfFaXlYWLoFWptkJ1Q',
+    bending: 'Water',
     gpa: 35,
     campusId: 7,
   },
@@ -95,6 +97,7 @@ const students = [
     email: 'toph@email.com',
     imageUrl:
       'https://jowritesstuff.files.wordpress.com/2016/04/toph2.jpg?w=720&h=536&crop=1',
+    bending: 'Earth',
     gpa: 40,
   },
   {
@@ -103,6 +106,7 @@ const students = [
     email: 'zuko@email.com',
     imageUrl:
       'http://oyster.ignimgs.com/mediawiki/apis.ign.com/avatar-the-last-airbender/thumb/9/94/Prince_zuko_img.jpg/228px-Prince_zuko_img.jpg',
+    bending: 'Fire',
     gpa: 38,
   },
 ];

@@ -1,7 +1,9 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-const Navbar = () => {
+const Navbar = props => {
+  const { search, handleSearchChange } = props;
+  console.log('SEARCH', search);
   return (
     <nav className="navbar sticky-top navbar-expand-sm navbar-light bg-light">
       <div className="container px-0">
@@ -44,12 +46,23 @@ const Navbar = () => {
             </li>
           </ul>
           <div className="form-inline my-2 my-lg-0">
-            <input
-              className="form-control mr-sm-2"
-              type="search"
-              placeholder="Search"
-              aria-label="Search"
-            />
+            <div className="input-group">
+              <input
+                id="search"
+                className="form-control"
+                value={search}
+                type="search"
+                placeholder="Search"
+                aria-label="Search"
+                onChange={handleSearchChange}
+              />
+              <div className="input-group-append">
+                <select className="custom-select">
+                  <option value="campuses">Campus</option>
+                  <option value="students">Student</option>
+                </select>
+              </div>
+            </div>
           </div>
         </div>
       </div>
