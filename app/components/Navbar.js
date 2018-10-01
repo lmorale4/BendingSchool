@@ -1,73 +1,134 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import {
+  AppBar,
+  Toolbar,
+  Button,
+  Input,
+  Select,
+  MenuItem,
+} from '@material-ui/core';
+import SearchIcon from '@material-ui/icons/Search';
+import { fade } from '@material-ui/core/styles/colorManipulator';
+import { withStyles } from '@material-ui/core/styles';
+
+const styles = theme => ({
+  grow: {
+    flexGrow: 1,
+  },
+  layout: {
+    width: 'auto',
+    marginLeft: theme.spacing.unit * 15,
+    marginRight: theme.spacing.unit * 15,
+  },
+  textLeft: {
+    textAlign: 'left',
+  },
+  textRight: {
+    textAlign: 'right',
+  },
+  search: {
+    position: 'relative',
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: fade('#ef8f3c', 0.15),
+    '&:hover': {
+      backgroundColor: fade('#ef8f3c', 0.25),
+    },
+    marginLeft: 0,
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      marginLeft: theme.spacing.unit,
+      width: 'auto',
+    },
+  },
+  searchIcon: {
+    width: theme.spacing.unit * 9,
+    height: '100%',
+    position: 'absolute',
+    pointerEvents: 'none',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  inputRoot: {
+    color: 'inherit',
+    width: '100%',
+  },
+  inputInput: {
+    paddingTop: theme.spacing.unit,
+    paddingRight: theme.spacing.unit,
+    paddingBottom: theme.spacing.unit,
+    paddingLeft: theme.spacing.unit,
+    transition: theme.transitions.create('width'),
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      width: 120,
+      '&:focus': {
+        width: 200,
+      },
+    },
+  },
+  navLink: {
+    '&:hover': {
+      backgroundColor: theme.palette.secondary.light,
+      color: '#fff',
+    },
+  },
+});
 
 const Navbar = props => {
-  const { search, handleSearchChange } = props;
-  console.log('SEARCH', search);
+  const { classes } = props;
   return (
-    <nav className="navbar sticky-top navbar-expand-sm navbar-light bg-light">
-      <div className="container px-0">
-        <NavLink className="navbar-brand" to="/">
-          <img
-            className="icon"
-            src="https://upload.wikimedia.org/wikipedia/en/thumb/a/a9/Avatar_The_Last_Airbender_logo.svg/1200px-Avatar_The_Last_Airbender_logo.svg.png"
-          />
-        </NavLink>
-        <span
-          className="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon" />
-        </span>
-        <div
-          className="collapse navbar-collapse d-lg-flex justify-content-end"
-          id="navbarSupportedContent"
-        >
-          <ul className="navbar-nav mx-3">
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/">
-                Home
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/campuses">
-                Campuses
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/students">
-                Students
-              </NavLink>
-            </li>
-          </ul>
-          <div className="form-inline my-2 my-lg-0">
-            <div className="input-group">
-              <input
-                id="search"
-                className="form-control"
-                value={search}
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-                onChange={handleSearchChange}
-              />
-              <div className="input-group-append">
-                <select className="custom-select">
-                  <option value="campuses">Campus</option>
-                  <option value="students">Student</option>
-                </select>
+    <div className={classes.grow}>
+      <AppBar>
+        <Toolbar>
+          <NavLink
+            to="/"
+            className={
+              classes.grow + ' ' + classes.layout + ' ' + classes.textLeft
+            }
+          >
+            <img className="icon" src="/img/AvatarLogo.png" /> <div />
+          </NavLink>
+          <div
+            className={
+              classes.grow + ' ' + classes.layout + ' ' + classes.textRight
+            }
+          >
+            <NavLink to="/">
+              <Button className={classes.navLink}>Home</Button>
+            </NavLink>
+            <NavLink to="/campuses">
+              <Button className={classes.navLink}>Campuses</Button>
+            </NavLink>
+            <NavLink to="/students">
+              <Button className={classes.navLink}>Students</Button>
+            </NavLink>
+            {/* <div className={classes.search}>
+              <div className={classes.searchIcon}>
+                <SearchIcon />
               </div>
-            </div>
+              <Input
+                id="search"
+                placeholder="Search…"
+                value={search}
+                onChange={handleSearchChange}
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput,
+                }}
+              />
+            </div> */}
           </div>
-        </div>
-      </div>
-    </nav>
+        </Toolbar>
+      </AppBar>
+    </div>
   );
 };
 
-export default Navbar;
+Navbar.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(Navbar);

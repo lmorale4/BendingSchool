@@ -1,23 +1,46 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import PropTypes from 'prop-types';
+import {
+  Grid,
+  Typography,
+  Card,
+  CardHeader,
+  CardContent,
+} from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
+
+const styles = {
+  textLeft: {
+    textAlign: 'left',
+  },
+};
+
 const CampusCard = props => {
-  const { campus } = props;
+  const { campus, classes } = props;
   return (
-    <div className="col-4 my-2">
+    <Grid item>
       <Link to={`/campuses/${campus.id}`}>
-        <div className="card">
+        <Card>
+          <CardHeader title={campus.name} />
           <img
             className="card-img-top img-thumbnail"
             src={campus.imageUrl || '/img/defaultCampus.jpg'}
           />
-          <div className="card-body">
-            <h6 className="card-title">{campus.name}</h6>
-          </div>
-        </div>
+          <CardContent>
+            <Typography component="p" className={classes.textLeft}>
+              {campus.shortDescription}
+            </Typography>
+          </CardContent>
+        </Card>
       </Link>
-    </div>
+    </Grid>
   );
 };
 
-export default CampusCard;
+CampusCard.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(CampusCard);

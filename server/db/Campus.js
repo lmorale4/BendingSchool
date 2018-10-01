@@ -23,6 +23,12 @@ const Campus = db.define('campus', {
   description: {
     type: Sequelize.TEXT,
   },
+  shortDescription: {
+    type: Sequelize.VIRTUAL,
+    get() {
+      return `${this.getDataValue('description').slice(0, 80)}...`;
+    },
+  },
 });
 
 module.exports = Campus;

@@ -5,53 +5,64 @@ import { getCampuses } from '../reducers/campuses';
 import { getStudents } from '../reducers/students';
 
 import Navbar from './Navbar';
-import Home from './Home';
-import CampusList from './Campus/CampusList';
-import Campus from './Campus/Campus';
-import StudentList from './Student/StudentList';
-import Student from './Student/Student';
+import { Home } from './Home/';
+import { Campus, CampusList } from './Campus';
+import { Student, StudentList } from './Student';
 
-import 'bootstrap';
+import {
+  MuiThemeProvider,
+  createMuiTheme,
+  withStyles,
+} from '@material-ui/core/styles';
+import PropTypes from 'prop-types';
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#f8f9fa',
+    },
+    secondary: {
+      light: '#ef8f3c',
+      main: '#65a0b3',
+      contrastText: '#ffcc00',
+    },
+  },
+});
+
+const styles = {
+  textCenter: {
+    textAlign: 'center',
+  },
+};
 
 class Root extends Component {
-  constructor() {
-    super();
-    this.state = {
-      search: '',
-    };
-    this.handleSearchChange = this.handleSearchChange.bind(this);
-  }
-
-  handleSearchChange(evt) {
-    this.setState({
-      search: evt.target.value,
-    });
-  }
-
   componentDidMount() {
     this.props.getCampuses();
     this.props.getStudents();
   }
 
   render() {
+    const { classes } = this.props;
     return (
-      <Router>
-        <div>
-          <Navbar
-            {...this.state}
-            handleSearchChange={this.handleSearchChange}
-          />
-          <main className="container">
-            <Switch>
-              <Route exact path="/" component={Home} />
-              <Route exact path="/campuses" component={CampusList} />
-              <Route path="/campuses/:campusId" component={Campus} />
-              <Route exact path="/students" component={StudentList} />
-              <Route path="/students/:studentId" component={Student} />
-            </Switch>
-          </main>
-        </div>
-      </Router>
+      <MuiThemeProvider theme={theme}>
+        <Router>
+          <div className={classes.textCenter}>
+            <Navbar
+              {...this.state}
+              handleSearchChange={this.handleSearchChange}
+            />
+            <main>
+              <Switch>
+                <Route exact path="/" component={Home} />
+                <Route exact path="/campuses" component={CampusList} />
+                <Route path="/campuses/:campusId" component={Campus} />
+                <Route exact path="/students" component={StudentList} />
+                <Route path="/students/:studentId" component={Student} />
+              </Switch>
+            </main>
+          </div>
+        </Router>
+      </MuiThemeProvider>
     );
   }
 }
@@ -61,7 +72,13 @@ const mapDispatch = dispatch => ({
   getStudents: () => dispatch(getStudents()),
 });
 
-export default connect(
-  null,
-  mapDispatch
-)(Root);
+Root.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(
+  connect(
+    null,
+    mapDispatch
+  )(Root)
+);

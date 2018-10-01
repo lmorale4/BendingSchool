@@ -3,7 +3,7 @@ import HomeCarousel from './HomeCarousel';
 
 const Home = () => {
   return (
-    <div className="text-center">
+    <div>
       <HomeCarousel />
       <h1>Welcome to the Bending School!</h1>
     </div>

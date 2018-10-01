@@ -17,7 +17,18 @@ router.get('/:campusId', async (req, res, next) => {
     const campus = await Campus.findById(req.params.campusId, {
       include: { model: Student },
     });
-    res.json(campus);
+
+    if (campus) res.json(campus);
+    else next();
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.post('/', async (req, res, next) => {
+  try {
+    const newCampus = await Campus.create(req.body);
+    res.json(newCampus);
   } catch (err) {
     next(err);
   }

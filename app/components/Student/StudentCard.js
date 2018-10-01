@@ -1,18 +1,40 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import PropTypes from 'prop-types';
+import { Grid, Card, CardContent, Typography } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
+
+const styles = {
+  card: {
+    display: 'flex',
+  },
+  textLeft: {
+    textAlign: 'left',
+  },
+  alignContent: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+  },
+};
+
 const StudentCard = props => {
-  const { student } = props;
+  const { student, classes } = props;
   return (
-    <div className="col-4 my-3">
+    <Grid item>
       <Link to={`/students/${student.id}`}>
-        <div className="row">
-          <div className="col-5 px-0">
-            <img className="img-thumbnail student" src={student.imageUrl} />
-          </div>
-          <div className="col-7">
-            <h6>{student.fullName}</h6>
-            <p>
+        <Card className={classes.card}>
+          <img className="img-thumbnail student" src={student.imageUrl} />
+
+          {/* <CardHeader title={student.fullName} /> */}
+          <CardContent
+            className={`${classes.textLeft} ${classes.alignContent}`}
+          >
+            <div>
+              <Typography component="h3">{student.fullName}</Typography>
+            </div>
+            <div>
               {student.bending && (
                 <img
                   className="bendingSymbol"
@@ -20,12 +42,16 @@ const StudentCard = props => {
                 />
               )}{' '}
               {student.bending}
-            </p>
-          </div>
-        </div>
+            </div>
+          </CardContent>
+        </Card>
       </Link>
-    </div>
+    </Grid>
   );
 };
 
-export default StudentCard;
+StudentCard.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(StudentCard);
