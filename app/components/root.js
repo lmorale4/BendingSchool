@@ -47,10 +47,7 @@ class Root extends Component {
       <MuiThemeProvider theme={theme}>
         <Router>
           <div className={classes.textCenter}>
-            <Navbar
-              {...this.state}
-              handleSearchChange={this.handleSearchChange}
-            />
+            <Navbar handleSearchChange={this.handleSearchChange} />
             <main>
               <Switch>
                 <Route exact path="/" component={Home} />

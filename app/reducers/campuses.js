@@ -3,6 +3,9 @@ import axios from 'axios';
 // Action Types
 const GOT_CAMPUSES = 'GOT_CAMPUSES';
 const GOT_CAMPUS = 'GOT_CAMPUS';
+
+const ADD_CAMPUS = 'ADD_CAMPUS';
+
 const FETCHING_CAMPUSES = 'FETCHING_CAMPUSES';
 const ERROR = 'ERROR';
 
@@ -13,6 +16,8 @@ const gotCampuses = campuses => ({
 });
 
 const gotCampus = campus => ({ type: GOT_CAMPUS, campus });
+
+const addCampus = campus => ({ type: ADD_CAMPUS, campus });
 
 const setFetchingTrue = () => ({
   type: FETCHING_CAMPUSES,
@@ -45,6 +50,15 @@ export const getCampus = campusId => async dispatch => {
   }
 };
 
+export const postCampus = campus => async dispatch => {
+  try {
+    const { data } = await axios.post('/api/campuses', campus);
+    dispatch(addCampus(data));
+  } catch (err) {
+    dispatch(setErrorTrue());
+  }
+};
+
 // Initial State
 const initialState = {
   all: [],
@@ -69,6 +83,11 @@ const reducer = (state = initialState, action) => {
         selected: action.campus,
         isFetching: false,
         isError: false,
+      };
+    case ADD_CAMPUS:
+      return {
+        ...state,
+        all: [...state.all, action.campus],
       };
     case FETCHING_CAMPUSES:
       return {

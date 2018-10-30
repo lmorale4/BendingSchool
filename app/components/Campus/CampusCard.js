@@ -1,5 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+
+import { postCampus } from '../../reducers/campuses';
 
 import PropTypes from 'prop-types';
 import {
@@ -39,8 +42,17 @@ const CampusCard = props => {
   );
 };
 
+const mapDispatchToProps = dispatch => ({
+  createCampus: campus => dispatch(postCampus(campus)),
+});
+
 CampusCard.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(CampusCard);
+export default withStyles(styles)(
+  connect(
+    null,
+    mapDispatchToProps
+  )(CampusCard)
+);
