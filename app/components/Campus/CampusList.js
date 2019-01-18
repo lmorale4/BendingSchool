@@ -169,7 +169,7 @@ class CampusList extends Component {
           ))}
           {showingForm && (
             <Grid item xs={4}>
-              <CampusForm />
+              <CampusForm handleAddCampus={this.handleAddCampus} />
             </Grid>
           )}
           <div ref={this.setCampusEnd} />

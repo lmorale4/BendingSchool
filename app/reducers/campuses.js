@@ -70,13 +70,19 @@ const initialState = {
 // Reducer
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case GOT_CAMPUSES:
-      return {
-        ...state,
-        all: action.campuses,
-        isFetching: false,
-        isError: false,
-      };
+    case GOT_CAMPUSES: {
+      // return {
+      //   ...state,
+      //   all: action.campuses,
+      //   isFetching: false,
+      //   isError: false,
+      // };
+      const newState = { ...state };
+      newState.all = action.campuses;
+      newState.isFetching = false;
+      newState.isError = false;
+      return newState;
+    }
     case GOT_CAMPUS:
       return {
         ...state,

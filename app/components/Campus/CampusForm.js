@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { Grid, Card, CardHeader, CardContent, Input } from '@material-ui/core';
+import { postCampus } from '../../reducers/campuses';
+
+import { Button, Card, CardContent, Grid, Input } from '@material-ui/core';
 
 import PropTypes from 'prop-types';
 import { Close } from '@material-ui/icons';
@@ -11,8 +13,14 @@ const styles = {
   root: {
     display: 'flex',
   },
-  alignLeft: {
+  alignRight: {
+    textAlign: 'right',
+  },
+  contentEnd: {
     justifyContent: 'flex-end',
+  },
+  grow: {
+    flexGrow: 1,
   },
 };
 
@@ -36,15 +44,28 @@ class CampusForm extends Component {
     });
   }
 
-  handleSubmit() {}
+  async handleSubmit(evt) {
+    evt.preventDefault();
+    await this.props.addCampus({ ...this.state });
+    this.props.handleAddCampus();
+    this.setState({
+      name: '',
+      imageUrl: '',
+      address: '',
+      description: '',
+    });
+  }
 
   render() {
     const { classes } = this.props;
     const { imageUrl } = this.state;
     return (
       <Grid item>
-        <form>
+        <form onSubmit={this.handleSubmit}>
           <Card>
+            <div className={classes.alignRight}>
+              <Close onClick={this.props.handleAddCampus} />
+            </div>
             <div>
               <Input
                 name="name"
@@ -53,7 +74,6 @@ class CampusForm extends Component {
                 placeholder="Campus Name"
                 onChange={this.handleChange}
               />
-              <Close />
             </div>
             <img
               className="card-img-top img-thumbnail"
@@ -74,10 +94,17 @@ class CampusForm extends Component {
               />
               <Input
                 name="description"
+                multiline
+                rowsMax="4"
                 type="text"
                 placeholder="Campus Description"
                 onChange={this.handleChange}
               />
+              <div className={`${classes.root} ${classes.contentEnd}`}>
+                <Button variant="outlined" type="submit">
+                  Add Campus
+                </Button>
+              </div>
             </CardContent>
           </Card>
         </form>
@@ -86,8 +113,17 @@ class CampusForm extends Component {
   }
 }
 
+const mapDispatchToProps = dispatch => ({
+  addCampus: campus => dispatch(postCampus(campus)),
+});
+
 CampusForm.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(connect()(CampusForm));
+export default withStyles(styles)(
+  connect(
+    null,
+    mapDispatchToProps
+  )(CampusForm)
+);
